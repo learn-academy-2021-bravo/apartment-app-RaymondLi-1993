@@ -11,7 +11,6 @@ class CreateApartments < ActiveRecord::Migration[6.1]
       t.integer :bathrooms
       t.string :pets
       t.integer :user_id
-
       t.timestamps
     end
   end
