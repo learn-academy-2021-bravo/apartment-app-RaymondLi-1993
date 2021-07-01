@@ -11,7 +11,7 @@ export default class Apartmentindex extends React.Component{
                 {apartments && apartments.map((apartment) => {
                     return (
                         <div key={apartment.id}>
-                           <NavLink to={`/apartmentshow/${apartment.id}`}>{apartment.street}</NavLink> 
+                           <NavLink to={`/apartmentshow/${apartment.id}`}><h1>{apartment.street}</h1></NavLink> 
                             <h2>{apartment.city}</h2>
                             <h4>{apartment.state}</h4>
                             <h4>{apartment.manager}</h4>

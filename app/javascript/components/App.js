@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Home from "./Pages/home";
 import Apartmentindex from "./Pages/apartmentIndex";
 import ApartmentShow from "./Pages/apartmentShow";
+import ApartmentEdit from "./Pages/apartmentEdit";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,15 +24,38 @@ class App extends React.Component {
       let response = await fetch("http://localhost:3000/apartments");
       const fetchedData = await response.json();
       this.setState({apartments:fetchedData});
-    } catch (err){
-      if (err) {
-        throw new Error(err);
+    } catch (error){
+      if (error) {
+        throw new Error(error);
       }
     }
+  }
 
 
-  } 
+  updateApartment = async (apartment, id) => {
+    if(this.props.current_user.id !== +id){
+         throw "Not the same users"; 
+    }
+      try{
+        const requestSettings = {
+          body: JSON.stringify(apartment),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PATCH",
+      }
+
+      const response = await fetch(`http://localhost:3000/apartments/${+id}`, requestSettings);
+      const updatedResponse = await response.json();
+      return updatedResponse;
+
+      } catch(error) {
+        throw new Error(error);
+      } 
+    }
+
   render () {
+    console.log(this.props)
     return (
       <div style={{padding:"0", margin:"0", width:"100%", height:"100%"}}>
         <Router>
@@ -44,7 +68,14 @@ class App extends React.Component {
                render={(props) => {
                 let id = props.match.params.id
                 let apartment = this.state.apartments.find((apartment) => apartment.id === +id);
-                return <ApartmentShow apartment={apartment} />
+                return <ApartmentShow apartment={apartment}  />
+               }} 
+              />
+              <Route path ="/apartmentedit/:id" 
+               render={(props) => {
+                let id = props.match.params.id
+                let apartment = this.state.apartments.find((apartment) => apartment.id === +id);
+                return <ApartmentEdit apartment={apartment} updateApartment={this.updateApartment} />
                }} 
               />
             </Switch>
