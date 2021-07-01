@@ -1,5 +1,6 @@
 import React from "react"
 import {NavLink} from "react-router-dom";
+import {Button} from "reactstrap"
 
 export default class ApartmentShow extends React.Component {
    render(){
@@ -16,7 +17,7 @@ export default class ApartmentShow extends React.Component {
               <h4>{apartment.email}</h4>
               <h4>{apartment.bathrooms}</h4>
               <h4>{apartment.bedrooms}</h4>
-              <NavLink to={`/apartmentedit/${apartment.id}`}><button>Update apartment</button></NavLink>
+              {this.props.userId === apartment.current_user.id && <NavLink to={`/apartmentedit/${apartment.id}`}><Button>Update apartment</Button></NavLink>}
           </div>
       ) 
    } 

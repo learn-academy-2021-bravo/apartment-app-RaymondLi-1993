@@ -15,10 +15,22 @@ class ApartmentsController < ApplicationController
         end
     end
 
+    def create
+        apartment = Apartment.create(new_apartment_params)
+        if apartment.valid?
+            render json: apartment
+        else
+            render json: apartment.errors, status:422
+        end
+    end
 
 
     private
     def apartment_params
         params.require(:apartment).permit(:street, :city, :state, :manager, :email, :price, :bedrooms, :bathrooms, :pets)
+    end
+
+    def new_apartment_params
+        params.require(:apartment).permit(:user_id, :street, :city, :state, :manager, :email, :price, :bedrooms, :bathrooms, :pets)
     end
 end

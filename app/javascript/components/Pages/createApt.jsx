@@ -2,11 +2,12 @@ import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import {Redirect} from "react-router-dom"
 
-export default class Apartmentedit extends React.Component{
+export default class CreateApartment extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          form: {
+          form: { 
+            user_id : this.props.userId,
             street: "",
             city: "",
             state: "",
@@ -23,7 +24,8 @@ export default class Apartmentedit extends React.Component{
 
       handleSubmit = (e) => {
         e.preventDefault();
-        this.props.updateApartment(this.state.form, this.props.apartment);
+        console.log(this.state.form)
+        this.props.createApartment(this.state.form);
         this.setState({ submitted: true });
       };
     
@@ -140,12 +142,12 @@ export default class Apartmentedit extends React.Component{
               value={this.state.form.enjoys}
             />
           </FormGroup>
-          {<Button outline color="success" onClick={this.handleSubmit}>
+          <Button outline color="success" onClick={this.handleSubmit}>
             Submit
-          </Button>}
+          </Button>
         </Form>
         {this.state.submitted && (
-          <Redirect to={`/apartmentshow/${this.props.apartment}`} />
+          <Redirect to={`/apartmentindex`} />
         )}
            </div>
        ) 

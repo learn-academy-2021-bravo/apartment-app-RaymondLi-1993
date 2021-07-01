@@ -1,5 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {Button} from "reactstrap";
 
 export default class Header extends React.Component{
     render(){
@@ -13,7 +14,7 @@ export default class Header extends React.Component{
           console.log(this.props.info)
         return (
             <>
-            <div style={{height:"100px", width:"full", textAlign:"center"}}>
+            <div style={{height:"200px", width:"full", textAlign:"center"}}>
                 { logged_in &&
             <div>
               <a href={sign_out_route }><h1>Sign Out</h1></a>
@@ -28,6 +29,7 @@ export default class Header extends React.Component{
             <NavLink to={"/apartmentindex"}>
                 <h1>See All Apartments</h1>
             </NavLink>
+            {logged_in && <NavLink to={`/newapartment`}><Button>create apartment</Button></NavLink> }
             </div>
             </>
         )
