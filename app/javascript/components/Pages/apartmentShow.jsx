@@ -3,9 +3,14 @@ import {NavLink} from "react-router-dom";
 import {Button} from "reactstrap"
 
 export default class ApartmentShow extends React.Component {
-   render(){
-      const {apartment} = this.props
-      const {current_user} = this.props.user 
+    handleDelete = () => {
+      this.props.deleteApartment(this.props.apartment.id)
+    }  
+    render(){
+    const {apartment} = this.props
+    const {current_user} = this.props.user  
+       
+
       return(
           <div>
                 {
@@ -32,7 +37,8 @@ export default class ApartmentShow extends React.Component {
                 <h4>{`contact: ${apartment.email}`}</h4>
                 <h4>{`bathrooms: ${apartment.bathrooms}`}</h4>
                 <h4>{`bedrooms : ${apartment.bedrooms}`}</h4> 
-                {current_user.id === apartment.user_id && <NavLink to={`/apartmentedit/${apartment.id}`}  ><Button>Update apartment</Button></NavLink>}    
+                {current_user.id === apartment.user_id && <NavLink to={`/apartmentedit/${apartment.id}`}  ><Button>Update apartment</Button></NavLink>}
+                {current_user.id === apartment.user_id && <NavLink to={`/apartmentindex`}><Button color="danger" onClick={this.handleDelete}> delete apartment</Button>  </NavLink>}
               </div>
                }
           </div>

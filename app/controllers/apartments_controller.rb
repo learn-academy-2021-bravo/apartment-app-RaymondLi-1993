@@ -24,6 +24,12 @@ class ApartmentsController < ApplicationController
         end
     end
 
+    def destroy
+        apartment = Apartment.find(params[:id])
+        apartment.destroy
+        render json: apartment
+    end
+
 
     private
     def apartment_params

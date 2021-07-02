@@ -52,9 +52,6 @@ class App extends React.Component {
   };
 
 
-
-
-
   updateApartment = async (apartment, id) => {
       try{
         const requestSettings = {
@@ -75,6 +72,22 @@ class App extends React.Component {
       } 
     }
 
+  destroyApartment = async id => {
+    try{
+      const requestSettings = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "DELETE",
+    }
+    const response = await fetch(`http://localhost:3000/apartments/${+id}`, requestSettings);
+    await response.json()
+    .then(() => this.fetchApartments());
+    } catch(error){
+      throw new Error(error);
+    }
+  }  
+
   render () {
     return (
       <div style={{padding:"0", margin:"0", width:"100%", height:"100%"}}>
@@ -88,7 +101,7 @@ class App extends React.Component {
                render={(props) => {
                 let id = props.match.params.id
                 let apartment = this.state.apartments.find((apartment) => apartment.id === +id);
-                return <ApartmentShow apartment={apartment} user = {this.props}  />
+                return <ApartmentShow apartment={apartment} user = {this.props} deleteApartment={this.destroyApartment}  />
                }} 
               />
               <Route path ="/apartmentedit/:id" 
