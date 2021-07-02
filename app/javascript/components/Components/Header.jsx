@@ -1,37 +1,56 @@
-import React from "react";
-import {NavLink} from "react-router-dom";
-import {Button} from "reactstrap";
+import React, {useState} from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  NavbarToggler,
+  Collapse,
+  Button
+} from "reactstrap";
 
-export default class Header extends React.Component{
-    render(){
-        const {
+const Header = ({info}) =>{
+   const [isOpen, setIsOpen] = useState(false);
+   const toggle = () => setIsOpen(!isOpen);
+   const {
             logged_in,
-            current_user,
-            new_user_route,
             sign_in_route,
             sign_out_route
-          } = this.props.info
-          console.log(this.props.info)
+          } = info
+
+  
         return (
             <>
-            <div style={{height:"200px", width:"full", textAlign:"center"}}>
+            <Navbar color="medium" light expand="md">
+              <NavbarBrand href="/"><h1>Apartments</h1></NavbarBrand>
+              <NavbarToggler onClick={toggle}/>
+              <Collapse isOpen={isOpen} navbar>
+                <Nav className="mr-auto" navbar>
                 { logged_in &&
-            <div>
-              <a href={sign_out_route }><h1>Sign Out</h1></a>
-            </div>
+            <NavItem style={{width:"150px"}}>
+                <a href={ sign_out_route }><h2>Sign In</h2></a>
+            </NavItem>
           }
           { !logged_in &&
-            <div>
-              <a href={ sign_in_route }><h1>Sign In</h1></a>
-            </div>
+            <NavItem style={{width:"150px"}}>
+              <a style={{textAlign:"center"}} href={ sign_in_route }><h2>Sign In</h2></a>
+            </NavItem>
           }
-
-            <NavLink to={"/apartmentindex"}>
+            <NavItem>
+            <NavLink href="/apartmentindex">
                 <h1>See All Apartments</h1>
             </NavLink>
+            </NavItem>
+            <NavItem>
             {logged_in && <NavLink to={`/newapartments`}><Button>create apartment</Button></NavLink> }
-            </div>
+            </NavItem>
+            </Nav>
+            </Collapse>
+            </Navbar>
             </>
         )
     }
-}
+
+export default Header;
+
