@@ -44,7 +44,7 @@ class App extends React.Component {
 
       const response = await fetch("http://localhost:3000/apartments", postSettings);
       await response.json()
-      .then(() => this.fetchApartments());
+      await this.fetchApartments();
 
     } catch(error) {
       throw new Error(error);
@@ -64,7 +64,7 @@ class App extends React.Component {
 
       const response = await fetch(`http://localhost:3000/apartments/${+id}`, requestSettings);
       await response.json()
-      .then(() => this.fetchApartments());
+      await this.fetchApartments();
       
 
       } catch(error) {
@@ -82,7 +82,7 @@ class App extends React.Component {
     }
     const response = await fetch(`http://localhost:3000/apartments/${+id}`, requestSettings);
     await response.json()
-    .then(() => this.fetchApartments());
+    await this.fetchApartments();
     } catch(error){
       throw new Error(error);
     }

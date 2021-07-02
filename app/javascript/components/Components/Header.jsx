@@ -1,56 +1,37 @@
-import React, {useState} from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  NavbarToggler,
-  Collapse,
-  Button
-} from "reactstrap";
+import React from "react";
+import {NavLink} from "react-router-dom";
+import {Button} from "reactstrap";
 
-const Header = ({info}) =>{
-   const [isOpen, setIsOpen] = useState(false);
-   const toggle = () => setIsOpen(!isOpen);
-   const {
+export default class Header extends React.Component{
+    render(){
+        const {
             logged_in,
+            current_user,
+            new_user_route,
             sign_in_route,
             sign_out_route
-          } = info
-
-  
+          } = this.props.info
+          console.log(this.props.info)
         return (
             <>
-            <Navbar color="medium" light expand="md">
-              <NavbarBrand href="/"><h1>Apartments</h1></NavbarBrand>
-              <NavbarToggler onClick={toggle}/>
-              <Collapse isOpen={isOpen} navbar>
-                <Nav className="mr-auto" navbar>
+            <div style={{height:"200px", width:"full", textAlign:"center"}}>
                 { logged_in &&
-            <NavItem style={{width:"150px"}}>
-                <a href={ sign_out_route }><h2>Sign In</h2></a>
-            </NavItem>
+            <div>
+              <a href={sign_out_route }><h1>Sign Out</h1></a>
+            </div>
           }
           { !logged_in &&
-            <NavItem style={{width:"150px"}}>
-              <a style={{textAlign:"center"}} href={ sign_in_route }><h2>Sign In</h2></a>
-            </NavItem>
+            <div>
+              <a href={ sign_in_route }><h1>Sign In</h1></a>
+            </div>
           }
-            <NavItem>
-            <NavLink href="/apartmentindex">
+
+            <NavLink to={"/apartmentindex"}>
                 <h1>See All Apartments</h1>
             </NavLink>
-            </NavItem>
-            <NavItem>
-            {logged_in && <NavLink to={`/newapartments`}><Button>create apartment</Button></NavLink> }
-            </NavItem>
-            </Nav>
-            </Collapse>
-            </Navbar>
+            {logged_in && <NavLink to={`/newapartment`}><Button>create apartment</Button></NavLink> }
+            </div>
             </>
         )
     }
-
-export default Header;
-
+}
