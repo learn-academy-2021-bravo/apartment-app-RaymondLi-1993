@@ -76,8 +76,6 @@ class App extends React.Component {
     }
 
   render () {
-    console.log(this.props)
-    console.log(this.state.apartments);
     return (
       <div style={{padding:"0", margin:"0", width:"100%", height:"100%"}}>
         <Router>
@@ -90,7 +88,7 @@ class App extends React.Component {
                render={(props) => {
                 let id = props.match.params.id
                 let apartment = this.state.apartments.find((apartment) => apartment.id === +id);
-                return <ApartmentShow apartment={apartment} userId = {this.props.current_user.id}  />
+                return <ApartmentShow apartment={apartment} user = {this.props}  />
                }} 
               />
               <Route path ="/apartmentedit/:id" 

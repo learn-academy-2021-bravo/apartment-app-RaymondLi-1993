@@ -29,7 +29,7 @@ export default class Header extends React.Component{
             <NavLink to={"/apartmentindex"}>
                 <h1>See All Apartments</h1>
             </NavLink>
-            {logged_in && <NavLink to={`/newapartment`}><Button>create apartment</Button></NavLink> }
+            {logged_in && <NavLink to={`/newapartments`}><Button>create apartment</Button></NavLink> }
             </div>
             </>
         )
